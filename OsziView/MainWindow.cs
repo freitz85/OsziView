@@ -34,7 +34,7 @@ namespace OsziView
 
         private void toolStripTextBox1_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -44,7 +44,7 @@ namespace OsziView
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

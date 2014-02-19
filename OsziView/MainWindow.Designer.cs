@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,16 +51,17 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -211,6 +213,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "View";
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(6, 19);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(675, 334);
+            this.panel1.TabIndex = 0;
+            // 
             // groupBox2
             // 
             this.groupBox2.Location = new System.Drawing.Point(705, 86);
@@ -230,6 +239,24 @@
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Transfer";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(119, 19);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Analyze";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(6, 19);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "Load";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -269,24 +296,6 @@
             this.checkBox1.Text = "Grid";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(119, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Analyze";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(6, 19);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Load";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.listView1);
@@ -297,12 +306,10 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Analyze";
             // 
-            // panel1
+            // serialPort1
             // 
-            this.panel1.Location = new System.Drawing.Point(6, 19);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(675, 334);
-            this.panel1.TabIndex = 0;
+            this.serialPort1.Handshake = System.IO.Ports.Handshake.RequestToSend;
+            this.serialPort1.RtsEnable = true;
             // 
             // MainWindow
             // 
@@ -368,6 +375,7 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox7;
+        private System.IO.Ports.SerialPort serialPort1;
 
     }
 }
