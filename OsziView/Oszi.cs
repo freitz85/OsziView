@@ -43,15 +43,15 @@ namespace OsziView
 
             for (int i = waveform.frontAddress; i < waveform.numberData; i++)
             {
-                waveform.data[i] = Convert.ToUInt16(answer.ElementAt(i + 14));
+                waveform.data.SetValue(Convert.ToUInt16(answer.ElementAt(i + 14)), i);
             }
-
+            
             serialPort.Close();
         }
 
         public void sendWaveforn()
         {
-
+           
         }
 
         public void getSettings()
@@ -71,13 +71,21 @@ namespace OsziView
     class Waveform
     {
         public char memoryNumber;
+        public string Name;
         public UInt16 frontAddress;
         public UInt16 numberData;
-        public UInt16 [] data;
+        public Array data;
 
-        Waveform()
+        public struct structCondition
         {
-            data = new UInt16[1000];
+            int i;
+        };
+        public structCondition condition;
+
+        public Waveform()
+        {
+            condition = new structCondition();
         }
+
     }
 }
