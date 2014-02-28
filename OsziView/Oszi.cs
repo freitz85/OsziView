@@ -6,18 +6,19 @@ using System.IO.Ports;
 
 namespace OsziView
 {
-    class Oszi
+    static class Oszi
     {
         static SerialPort serialPort;
 
-        Oszi()
+        public static void init()
         {
-            serialPort = new SerialPort("COM1:", 9600, Parity.None, 8, StopBits.One);
+            serialPort = new SerialPort("COM2", 4800, Parity.None, 8, StopBits.One);
             serialPort.Handshake = Handshake.RequestToSend;
             serialPort.NewLine = "\r";
+            serialPort.Encoding = Encoding.UTF8;
         }
 
-        public bool checkTransmission()
+        public static bool checkTransmission()
         {
             string answer;
 
@@ -32,49 +33,55 @@ namespace OsziView
                 return false;
         }
 
-        public void getWaveforn(Waveform waveform)
+        public static void getWaveforn(Waveform waveform)
         {
             string answer;
+            string message = "R" + waveform.memoryNumber + "(" + waveform.frontAddress +
+                                 "," + waveform.numberData + ",B)";
 
             serialPort.Open();
-            serialPort.WriteLine("R" + waveform.memoryNumber + "(" + waveform.frontAddress + 
-                                 "," + waveform.numberData + ",B)");
-            answer = serialPort.ReadLine();
+            serialPort.WriteLine(message);
+            //answer = serialPort.ReadLine();
 
-            for (int i = waveform.frontAddress; i < waveform.numberData; i++)
+            for (int i = 0; i < 14; i++)
             {
-                waveform.data.SetValue(Convert.ToUInt16(answer.ElementAt(i + 14)), i);
+                serialPort.ReadByte();
             }
-            
+
+            for (int i = 0; i < 1000; i++)
+            {
+                waveform.data[i] = serialPort.ReadByte();
+            }
+
             serialPort.Close();
         }
 
-        public void sendWaveforn()
+        public static void sendWaveforn()
         {
            
         }
 
-        public void getSettings()
+        public static void getSettings()
         {
 
         }
 
-        public void sendSettings()
+        public static void sendSettings()
         {
 
         }
 
 
-        public Parity S { get; set; }
+        public static Parity S { get; set; }
     }
 
     class Waveform
     {
-        public char memoryNumber;
+        public string memoryNumber;
         public string Name;
-        public UInt16 frontAddress;
-        public UInt16 numberData;
-        public Array data;
+        public string frontAddress;
+        public string numberData;
+        public int [] data;
 
         public struct structCondition
         {
@@ -85,6 +92,7 @@ namespace OsziView
         public Waveform()
         {
             condition = new structCondition();
+            data = new int[1000];
         }
 
     }

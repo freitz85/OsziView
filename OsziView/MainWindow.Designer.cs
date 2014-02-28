@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +43,7 @@
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutOsziViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testCommunicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -51,8 +55,12 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.groupBoxChannel = new System.Windows.Forms.GroupBox();
+            this.radioButtonWaveB = new System.Windows.Forms.RadioButton();
+            this.radioButtonWaveA = new System.Windows.Forms.RadioButton();
+            this.radioButtonWave2 = new System.Windows.Forms.RadioButton();
+            this.radioButtonWave1 = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -64,6 +72,8 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.groupBoxChannel.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -120,7 +130,8 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem1,
             this.toolStripMenuItem1,
-            this.aboutOsziViewToolStripMenuItem});
+            this.aboutOsziViewToolStripMenuItem,
+            this.testCommunicationToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -128,19 +139,26 @@
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(157, 22);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(186, 22);
             this.helpToolStripMenuItem1.Text = "Help";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(154, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(183, 6);
             // 
             // aboutOsziViewToolStripMenuItem
             // 
             this.aboutOsziViewToolStripMenuItem.Name = "aboutOsziViewToolStripMenuItem";
-            this.aboutOsziViewToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.aboutOsziViewToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.aboutOsziViewToolStripMenuItem.Text = "About OsziView";
+            // 
+            // testCommunicationToolStripMenuItem
+            // 
+            this.testCommunicationToolStripMenuItem.Name = "testCommunicationToolStripMenuItem";
+            this.testCommunicationToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.testCommunicationToolStripMenuItem.Text = "Test Communication";
+            this.testCommunicationToolStripMenuItem.Click += new System.EventHandler(this.testCommunicationToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -205,7 +223,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Controls.Add(this.chart1);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(687, 359);
@@ -213,21 +231,77 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "View";
             // 
-            // panel1
+            // chart1
             // 
-            this.panel1.Location = new System.Drawing.Point(6, 19);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(675, 334);
-            this.panel1.TabIndex = 0;
+            chartArea1.AxisX.Maximum = 1000D;
+            chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisY.Maximum = 255D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(6, 19);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(675, 334);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
             // 
-            // groupBox2
+            // groupBoxChannel
             // 
-            this.groupBox2.Location = new System.Drawing.Point(705, 86);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 236);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Channel";
+            this.groupBoxChannel.Controls.Add(this.radioButtonWaveB);
+            this.groupBoxChannel.Controls.Add(this.radioButtonWaveA);
+            this.groupBoxChannel.Controls.Add(this.radioButtonWave2);
+            this.groupBoxChannel.Controls.Add(this.radioButtonWave1);
+            this.groupBoxChannel.Location = new System.Drawing.Point(705, 86);
+            this.groupBoxChannel.Name = "groupBoxChannel";
+            this.groupBoxChannel.Size = new System.Drawing.Size(200, 236);
+            this.groupBoxChannel.TabIndex = 4;
+            this.groupBoxChannel.TabStop = false;
+            this.groupBoxChannel.Text = "Channel";
+            // 
+            // radioButtonWaveB
+            // 
+            this.radioButtonWaveB.AutoSize = true;
+            this.radioButtonWaveB.Location = new System.Drawing.Point(18, 145);
+            this.radioButtonWaveB.Name = "radioButtonWaveB";
+            this.radioButtonWaveB.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonWaveB.TabIndex = 3;
+            this.radioButtonWaveB.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonWaveA
+            // 
+            this.radioButtonWaveA.AutoSize = true;
+            this.radioButtonWaveA.Location = new System.Drawing.Point(18, 104);
+            this.radioButtonWaveA.Name = "radioButtonWaveA";
+            this.radioButtonWaveA.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonWaveA.TabIndex = 2;
+            this.radioButtonWaveA.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonWave2
+            // 
+            this.radioButtonWave2.AutoSize = true;
+            this.radioButtonWave2.Location = new System.Drawing.Point(18, 66);
+            this.radioButtonWave2.Name = "radioButtonWave2";
+            this.radioButtonWave2.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonWave2.TabIndex = 1;
+            this.radioButtonWave2.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonWave1
+            // 
+            this.radioButtonWave1.AutoSize = true;
+            this.radioButtonWave1.Checked = true;
+            this.radioButtonWave1.Location = new System.Drawing.Point(18, 30);
+            this.radioButtonWave1.Name = "radioButtonWave1";
+            this.radioButtonWave1.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonWave1.TabIndex = 0;
+            this.radioButtonWave1.TabStop = true;
+            this.radioButtonWave1.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -257,6 +331,7 @@
             this.button2.TabIndex = 10;
             this.button2.Text = "Load";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // groupBox4
             // 
@@ -321,7 +396,7 @@
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBoxChannel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -333,6 +408,9 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.groupBoxChannel.ResumeLayout(false);
+            this.groupBoxChannel.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
@@ -365,8 +443,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxChannel;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
@@ -376,6 +453,12 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.RadioButton radioButtonWaveB;
+        private System.Windows.Forms.RadioButton radioButtonWaveA;
+        private System.Windows.Forms.RadioButton radioButtonWave2;
+        private System.Windows.Forms.RadioButton radioButtonWave1;
+        private System.Windows.Forms.ToolStripMenuItem testCommunicationToolStripMenuItem;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
 
     }
 }
